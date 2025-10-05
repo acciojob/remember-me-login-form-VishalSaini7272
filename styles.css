@@ -1,1 +1,42 @@
 /*  your css code here. If applicable */
+body {
+  font-family: Arial, sans-serif;
+  margin: 40px;
+}
+
+h1 {
+  color: #333;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  gap: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+  padding: 8px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+}
+
+input[type="submit"],
+button {
+  padding: 8px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button {
+  margin-top: 10px;
+}
+
+input[type="submit"]:hover,
+button:hover {
+  background-color: #0056b3;
+}
