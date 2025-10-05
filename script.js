@@ -1,61 +1,61 @@
-//your JS code here. If required.
-// Select DOM elements
-const usernameInput = document.getElementById("username");
-const passwordInput = document.getElementById("password");
-const rememberCheckbox = document.getElementById("checkbox");
-const submitBtn = document.getElementById("submit");
-const existingBtn = document.getElementById("existing");
+document.addEventListener("DOMContentLoaded", function () {
+  const usernameInput = document.getElementById("username");
+  const passwordInput = document.getElementById("password");
+  const checkbox = document.getElementById("checkbox");
+  const submitBtn = document.getElementById("submit");
+  const existingBtn = document.getElementById("existing");
 
-// Check if credentials exist in localStorage
-const savedUsername = localStorage.getItem("username");
-const savedPassword = localStorage.getItem("password");
+  // Check if saved credentials exist
+  const savedUsername = localStorage.getItem("username");
+  const savedPassword = localStorage.getItem("password");
 
-// Show "Login as existing user" button if credentials exist
-if (savedUsername && savedPassword) {
-  existingBtn.style.display = "block";
-}
-
-// Handle form submission
-document.getElementById("login-form").addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const username = usernameInput.value.trim();
-  const password = passwordInput.value.trim();
-
-  if (!username || !password) {
-    alert("Please enter username and password.");
-    return;
+  // If credentials exist, show "Login as existing user" button
+  if (savedUsername && savedPassword) {
+    existingBtn.style.display = "inline-block";
   }
 
-  alert(`Logged in as ${username}`);
+  // Handle form submission
+  submitBtn.addEventListener("click", function (event) {
+    event.preventDefault();
 
-  if (rememberCheckbox.checked) {
-    // Save credentials in localStorage
-    localStorage.setItem("username", username);
-    localStorage.setItem("password", password);
-  } else {
-    // Remove credentials if checkbox not checked
-    localStorage.removeItem("username");
-    localStorage.removeItem("password");
-  }
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value.trim();
 
-  // Update existing user button visibility
-  if (localStorage.getItem("username")) {
-    existingBtn.style.display = "block";
-  } else {
-    existingBtn.style.display = "none";
-  }
+    if (!username || !password) {
+      alert("Please enter valid details");
+      return;
+    }
 
-  // Optionally clear inputs
-  usernameInput.value = "";
-  passwordInput.value = "";
-  rememberCheckbox.checked = false;
-});
+    alert(`Logged in as ${username}`);
 
-// Handle "Login as existing user" click
-existingBtn.addEventListener("click", function () {
-  const savedUser = localStorage.getItem("username");
-  if (savedUser) {
-    alert(`Logged in as ${savedUser}`);
-  }
+    if (checkbox.checked) {
+      // Save credentials
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+    } else {
+      // Remove any previously saved credentials
+      localStorage.removeItem("username");
+      localStorage.removeItem("password");
+    }
+
+    // Reload UI state
+    if (localStorage.getItem("username")) {
+      existingBtn.style.display = "inline-block";
+    } else {
+      existingBtn.style.display = "none";
+    }
+
+    // Clear form fields after submit
+    usernameInput.value = "";
+    passwordInput.value = "";
+    checkbox.checked = false;
+  });
+
+  // Handle "Login as existing user"
+  existingBtn.addEventListener("click", function () {
+    const storedUsername = localStorage.getItem("username");
+    if (storedUsername) {
+      alert(`Logged in as ${storedUsername}`);
+    }
+  });
 });
